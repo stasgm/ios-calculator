@@ -3,9 +3,9 @@
     position: absolute;
     top: 5%;
     
-    left: 40%;
-    margin-left: -0.625em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    left: 50%;
+    margin-left: -183px;
+    font-family: 'San Fransisco Pro', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .calc {
@@ -32,10 +32,6 @@
     border-radius: 50px;
 }
 
-.button.digit-dark-gray {
-    background-color: rgb(63, 63, 63);
-}
-
 .button {    
     width: 70px;
     height: 70px;
@@ -45,7 +41,7 @@
     line-height: 70px;    
     text-align: center;
 
-    font-size: 26px;
+    font-size: 35px;
 
     border: 2px solid #000;   
     transition: all 0.2s ease;
@@ -53,6 +49,11 @@
 
 .button.digit-gray {
     background-color: gray;
+    color: black;
+}
+
+.button.digit-dark-gray {
+    background-color: rgb(63, 63, 63);
 }
 
 .button.digit-orange {
