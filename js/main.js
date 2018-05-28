@@ -5,30 +5,47 @@ const operators = ['+', '-', 'x', '÷'];
 let curOperation;
 let dotUsed = false;
 
-output.addEventListener('edit', function() {
-    console.log('edit');
-})
+function formatOutput() {
+    let num = output.textContent
+
+    num = num.replace(/\s/g, ''); 
+    if  (num.indexOf(',') === num.length - 1) {
+        // last symbol is comma
+        num = num.replace(',', '.');    
+        num = parseFloat(num).toLocaleString() + ',';
+    } else {
+        num = num.replace(',', '.');    
+        num = parseFloat(num).toLocaleString();  
+    }
+    output.textContent = num;
+
+    //num = num.replace(/\s/g, ''); 
+    //num = num.replace(',', '.');
+    //num = parseFloat(num).toLocaleString();
+    
+    //output.textContent = Number(num.toFixed(0)).toLocaleString().split(/\s/).join(',') + '.' + Number(num.toString().slice(num.toString().indexOf('.')+1)).toLocaleString();
+}
 
 for(let i=0; i < buttons.length; i++) {
     let button = buttons[i];
     button.onclick = function(e) {
-        let value = e.target.innerHTML
-        //console.log(value);
+        let value = e.target.textContent
         if (value.match(/^\d+$/)) {
-            output.innerHTML += value;
+            output.textContent += value;
         } else {
             switch (value.toUpperCase()) {
                 case 'C': 
-                    output.innerHTML = '0';
+                    output.textContent = '0';
                     dotUsed = false;
                     break;
                 case ',': 
-                    if (output.innerHTML > '' && !dotUsed) {
-                        output.innerHTML += value;
+                    if (output.textContent > '' && !dotUsed) {
+                        output.textContent += value;
                         dotUsed = true;
                     }
                     break;
             }
         }
+        formatOutput();        
     }
 }
