@@ -28,7 +28,7 @@
 
 .button.digit-zero {
     grid-column: span 2 / auto;
-    width: 140px;    
+    width: 140px; 
     border-radius: 50px;
 }
 
