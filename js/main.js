@@ -19,6 +19,8 @@ let operatorUsed = true;
 let calcValue = 0;
 let maxDigit = 10
 
+let operator;
+
 document.addEventListener("keydown", function (e) {
     /* handle keyboard input  */
     var key = e.keyCode;
@@ -29,14 +31,45 @@ document.addEventListener("keydown", function (e) {
 });
 
 function calculate() {
+    try {
+        calcValue = eval(calcValue);
+    } 
+    catch {
+        calcValue = 'error';
+    }
     return calcValue;
+}
+
+function unsetOperators(button) {
+    let btnOperators = document.getElementsByClassName('operator');    
+    for (let i=0; i < btnOperators.length; i++) {
+        if (button !== btnOperators[i]) {
+            btnOperators[i].classList.remove('checked');
+        } else {
+            button.classList.toggle('checked');
+        }
+    }
 }
 
 function updateState() {
     calcValue = calc.dataset.value;
     if (lastDigit) {
         // digit or comma        
-        calcValue = calcValue.length > (dotUsed ? maxDigit + 1 : maxDigit) ? calcValue : calcValue + lastDigit;
+        if (lastOperator) {
+            switch (lastOperator) {
+                case 'PLUS':
+                    operator = '+'
+                    break;
+                case 'MINUS':
+                    operator = '-'
+                    break;
+                default:
+                    break;
+            }
+            calcValue = calcValue + operator + lastDigit; 
+        } else {
+            calcValue = calcValue.length > (dotUsed ? maxDigit + 1 : maxDigit) ? calcValue : calcValue + lastDigit;
+        }
         lastDigit = '';
     } else if (lastOperator) {
         // 
@@ -57,10 +90,12 @@ function updateState() {
         }
     }
 
-    calc.dataset.value = calculate();
+    unsetOperators();в
+    lastOperation = '';
+    calc.dataset.value = calculate(calcValue);
 
-    lastOperator = '';
-    lastDigit = '';
+    //lastOperator = '';
+    //lastDigit = '';
 
     let num = calcValue.toString();
 
@@ -77,20 +112,14 @@ for (let i = 0; i < buttons.length; i++) {
     let button = buttons[i];
 
     button.onclick = function (e) {
-        lastDigit = '';
-        lastOperator = '';
-        lastOperation = '';
+        //lastDigit = '';
+        //lastOperator = '';
+        //lastOperation = '';
 
         if (button.classList.contains('operator') && !button.classList.contains('equals')) {
             let btnOperators = document.getElementsByClassName('operator');
-            for (let i=0; i < btnOperators.length; i++) {
-                if (button !== btnOperators[i]) {
-                    btnOperators[i].classList.remove('checked');
-                } else {
-                    button.classList.toggle('checked');
-                }
-            }
 
+            unsetOperators(button);
             if (!button.classList.contains('checked')) {
                 lastOperator = '';
             }
