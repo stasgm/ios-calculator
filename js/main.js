@@ -1,12 +1,26 @@
-const buttons = document.getElementsByClassName("button");
-const output = document.querySelectorAll('.output')[0];
+const buttons = document.getElementsByClassName('button');
+const calc = document.getElementById('calc');
+const output = document.getElementById('output');
 
-const operators = ['+', '-', 'x', '÷', 'c', '='];
+const operators = ['PLUS', 'MINUS', 'MULTIPLICATION', 'DIVISION', 'EQUALS'];
+const operation = ['CLEAR', 'SIGN', 'PERCENTAGE'];
+
+const display = {
+    10: "50px",
+};
+
+let lastOperator;
 let lastOperation;
-let dotUsed = false;
-let lastSymbol;
+let lastDigit;
 
-document.addEventListener("keydown", function(e) {
+let dotUsed = false;
+let operatorUsed = true;
+
+let calcValue = 0;
+let maxDigit = 10
+
+document.addEventListener("keydown", function (e) {
+    /* handle keyboard input  */
     var key = e.keyCode;
     //var inputValue = input.value;
     var shift = e.shiftKey;
@@ -14,67 +28,87 @@ document.addEventListener("keydown", function(e) {
     console.log(key);
 });
 
+function calculate() {
+    return calcValue;
+}
+
 function updateState() {
-    if (curSymbol > '' ) {
-        // digit or comma
-        output.textContent +=  curSymbol;
-        curSymbol = '';
-    } else if (curOperation > '') {
-        // math operator or 'Clear'
-        switch (curOperation) {
-            case 'c':
+    calcValue = calc.dataset.value;
+    if (lastDigit) {
+        // digit or comma        
+        calcValue = calcValue.length > (dotUsed ? maxDigit + 1 : maxDigit) ? calcValue : calcValue + lastDigit;
+        lastDigit = '';
+    } else if (lastOperator) {
+        // 
+    } else if (lastOperation) {
+        switch (lastOperation) {
+            case 'CLEAR':
                 dotUsed = false;
-                break;        
+                calcValue = 0;
+                break;
+            case 'PERCENTAGE':
+                calcValue = calcValue / 100;
+                break;
+            case 'SIGN':
+                calcValue = -calcValue;
+                break;
             default:
                 break;
         }
     }
 
-    curOperation = '';
-    
-    let num = output.textContent;
+    calc.dataset.value = calculate();
 
-    num = num.replace(/\s/g, ''); 
-    if  (num.indexOf(',') === num.length - 1) {
-        // last symbol is comma
-        num = num.replace(',', '.');    
-        num = parseFloat(num).toLocaleString() + ',';
+    lastOperator = '';
+    lastDigit = '';
+
+    let num = calcValue.toString();
+
+    num = num.replace(',', '.');
+    if (num.indexOf('.') === num.length - 1) {
+        num = parseFloat(calcValue).toLocaleString(undefined, { maximumFractionDigits: 6 }) + ',';
     } else {
-        num = num.replace(',', '.');    
-        num = parseFloat(num).toLocaleString();  
+        num = parseFloat(calcValue).toLocaleString(undefined, { maximumFractionDigits: 6 });
     }
     output.textContent = num;
-
-    //num = num.replace(/\s/g, ''); 
-    //num = num.replace(',', '.');
-    //num = parseFloat(num).toLocaleString();
-    
-    //output.textContent = Number(num.toFixed(0)).toLocaleString().split(/\s/).join(',') + '.' + Number(num.toString().slice(num.toString().indexOf('.')+1)).toLocaleString();
 }
 
-for(let i=0; i < buttons.length; i++) {
-    curSymbol = '';
+for (let i = 0; i < buttons.length; i++) {
     let button = buttons[i];
-    button.onclick = function(e) {
-        let value = e.target.textContent
-        if (value.match(/^\d+$/)) {
-            curSymbol = value
-            //output.textContent += value;
-        } else if (operators.indexOf(value)) {
-            switch (value.toUpperCase()) {
-                case 'C': 
-                    //output.textContent = '0';
-                    curOperation = 'c'
-                    break;
-                case ',': 
-                    if (output.textContent > '' && !dotUsed) {
-                        curSymbol = value
-                        //output.textContent += value;
-                        dotUsed = true;
-                    }
-                    break;
+
+    button.onclick = function (e) {
+        lastDigit = '';
+        lastOperator = '';
+        lastOperation = '';
+
+        if (button.classList.contains('operator') && !button.classList.contains('equals')) {
+            let btnOperators = document.getElementsByClassName('operator');
+            for (let i=0; i < btnOperators.length; i++) {
+                if (button !== btnOperators[i]) {
+                    btnOperators[i].classList.remove('checked');
+                } else {
+                    button.classList.toggle('checked');
+                }
+            }
+
+            if (!button.classList.contains('checked')) {
+                lastOperator = '';
             }
         }
-        updateState();        
+
+        let value = e.target.dataset.value.toUpperCase();
+        if (value.match(/^\d+$/)) {
+            lastDigit = value;
+        } else if (value === 'COMMA') {
+            if (calcValue > '' && !dotUsed) {
+                lastDigit = '.'
+                dotUsed = true;
+            }
+        } else if (operators.indexOf(value) !== -1) {
+            lastOperator = value;
+        } else if (operation.indexOf(value) !== -1) {
+            lastOperation = value;
+        }
+        updateState();
     }
 }
