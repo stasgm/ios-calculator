@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="./css/devices.min.css" />    
+    <link rel="stylesheet" type="text/css" media="screen" href="./css/device.css" />    
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
     <link href="./images/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -18,32 +18,32 @@
         <div class="sensor"></div>
         <div class="speaker"></div>
         <div class="screen">
-            <div class="calc">
-                <div class="output">0</div>
-                <div class="button digit-gray">C</div>
-                <div class="button digit-gray">+/-</div>
-                <div class="button digit-gray">%</div>
-                <div class="button digit-orange operator">÷</div>
-                <div class="button digit-dark-gray">7</div>
-                <div class="button digit-dark-gray">8</div>
-                <div class="button digit-dark-gray">9</div>
-                <div class="button digit-orange">x</div>
-                <div class="button digit-dark-gray">4</div>
-                <div class="button digit-dark-gray">5</div>
-                <div class="button digit-dark-gray">6</div>
-                <div class="button digit-orange operator">-</div>
-                <div class="button digit-dark-gray">1</div>
-                <div class="button digit-dark-gray">2</div>
-                <div class="button digit-dark-gray">3</div>
-                <div class="button digit-orange operator">+</div>
-                <div class="button digit-dark-gray digit-zero">0</div>
-                <div class="button digit-dark-gray">,</div>
-                <div class="button digit-orange operator">=</div>
+            <div class="calc" id="calc" data-value="0">
+                <div class="output" id="output">0</div>
+                <div class="button operation" data-value="clear">C</div>
+                <div class="button operation" data-value="sign">±</div>
+                <div class="button operation" data-value="percentage">%</div>
+                <div class="button operator" data-value="division">÷</div>
+                <div class="button digit" data-value="7">7</div>
+                <div class="button digit" data-value="8">8</div>
+                <div class="button digit" data-value="9">9</div>
+                <div class="button operator" data-value="multiplication">×</div>
+                <div class="button digit" data-value="4">4</div>
+                <div class="button digit" data-value="5">5</div>
+                <div class="button digit" data-value="6">6</div>
+                <div class="button operator" data-value="minus">-</div>
+                <div class="button digit" data-value="1">1</div>
+                <div class="button digit" data-value="2">2</div>
+                <div class="button digit" data-value="3">3</div>
+                <div class="button operator" data-value="plus">+</div>
+                <div class="button digit digit-zero" data-value="0">0</div>
+                <div class="button digit" data-value="comma">,</div>
+                <div class="button operator equals" id="equals" data-value="equals">=</div>
             </div>
         </div>
         <div class="home"></div>
         <div class="bottom-bar"></div>
     </div>
-    <script src="./js/main.js"></script>    
+    <script src="./js/calc.js"></script>
 </body>
 </html>

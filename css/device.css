@@ -1,0 +1,174 @@
+.marvel-device {
+    display: inline-block;
+    position: relative;
+    -webkit-box-sizing: content-box !important;
+    box-sizing: content-box !important
+}
+
+.marvel-device .screen {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    z-index: 3;
+    background: white;
+    overflow: hidden;
+    display: block;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 0 0 3px #111;
+    box-shadow: 0 0 0 3px #111
+}
+
+.marvel-device .top-bar,
+.marvel-device .bottom-bar {
+    height: 3px;
+    background: black;
+    width: 100%;
+    display: block
+}
+
+.marvel-device .middle-bar {
+    width: 3px;
+    height: 4px;
+    top: 0px;
+    left: 90px;
+    background: black;
+    position: absolute
+}
+
+.marvel-device.iphone4s {
+    padding: 129px 27px;
+    width: 320px;
+    height: 480px;
+    background: #686868;
+    border-radius: 54px
+}
+
+.marvel-device.iphone4s:before {
+    content: '';
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 1;
+    border-radius: 50px;
+    background: #1e1e1e
+}
+
+.marvel-device.iphone4s .top-bar {
+    top: 60px;
+    position: absolute;
+    left: 0
+}
+
+.marvel-device.iphone4s .bottom-bar {
+    bottom: 90px;
+    position: absolute;
+    left: 0
+}
+
+.marvel-device.iphone4s .camera {
+    background: #3c3d3d;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 72px;
+    left: 134px;
+    z-index: 3;
+    margin-left: -5px;
+    border-radius: 100%
+}
+
+.marvel-device.iphone4s .speaker {
+    background: #292728;
+    width: 64px;
+    height: 10px;
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    z-index: 3;
+    margin-left: -32px;
+    border-radius: 5px
+}
+
+.marvel-device.iphone4s .sensor {
+    background: #292728;
+    width: 40px;
+    height: 10px;
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    z-index: 3;
+    margin-left: -20px;
+    border-radius: 5px
+}
+
+.marvel-device.iphone4s .home {
+    background: #242324;
+    border-radius: 100%;
+    width: 72px;
+    height: 72px;
+    z-index: 3;
+    position: absolute;
+    left: 50%;
+    margin-left: -36px;
+    bottom: 30px
+}
+
+.marvel-device.iphone4s .home:after {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    position: absolute;
+    display: block;
+    content: '';
+    top: 50%;
+    left: 50%;
+    margin-top: -11px;
+    margin-left: -11px
+}
+
+.marvel-device.iphone4s .sleep {
+    position: absolute;
+    top: -4px;
+    right: 60px;
+    width: 60px;
+    height: 4px;
+    border-radius: 2px 2px 0px 0px;
+    background: #4D4D4D
+}
+
+.marvel-device.iphone4s .volume {
+    position: absolute;
+    left: -4px;
+    top: 160px;
+    height: 27px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: #4D4D4D
+}
+
+.marvel-device.iphone4s .volume:before {
+    position: absolute;
+    left: 0px;
+    top: -70px;
+    height: 35px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    content: '';
+    display: block
+}
+
+.marvel-device.iphone4s .volume:after {
+    position: absolute;
+    left: 0px;
+    bottom: -64px;
+    height: 27px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    content: '';
+    display: block
+}
