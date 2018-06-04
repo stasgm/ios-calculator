@@ -1,33 +1,92 @@
 const Calculator = {
     calc: document.getElementById('calc'),
     output: document.getElementById('output'),
-    currentInput: '',
+    significantDigits: 9,
+    currentInput: '0',
     inputDigits: 0,
-    updateDisplay: function() {
+    decimalMark: false,    
+    operationToBeApplied: '',
+    updateDisplay() {
         output.textContent = this.currentInput;
     },
-    appendDigit: function(value) {
+    clear() {
+        this.currentInput = '0';
+        this.inputDigits = 0;
+        this.decimalMark = false
+        this.operationToBeApplied = '';
+        this.updateDisplay();
+    },
+    appendDigit(value) {
+        if (this.inputDigits + 1 > this.significantDigits ||
+            this.currentInput === '0' && value === '0') {
+          return;
+        }
+        if (value === 'comma') {
+            value = ',';
+            if (this.decimalMark) {
+                return;
+            } else {
+                this.decimalMark = true;
+            }
+            if (!this.currentInput) {
+                this.currentInput += '0';
+            }
+        } else {
+            if (this.currentInput === '0' && value !== '0') {
+                this.currentInput = '';
+            } else {
+                ++this.inputDigits;
+            }
+        }
+        if (!this.operationToBeApplied) {
+        this.result = 0;
+        }
         this.currentInput += value;
         this.updateDisplay();
     },    
-    handleEvent: function(e) {
+    appendOperator(value) {
+
+    },
+    execCommand(value) {
+        switch (value) {
+            case 'clear':
+                this.clear();
+                break;
+            case 'percentage':
+                if (this.currentInput !== '0' && !isNaN(this.currentInput)) { 
+                    if ((this.currentInput/100).toString().length - 1 < this.significantDigits) {
+                        this.currentInput = (this.currentInput/100).toString();
+                        this.inputDigits = this.currentInput.toString().length - 1
+                    }
+                }
+                break;
+            case 'sign':
+                if (this.currentInput !== '0') this.currentInput = -this.currentInput;
+                break;                
+            default:
+                break;
+        }
+        //this.currentInput += value;
+        this.updateDisplay();
+    },    
+    handleEvent(e) {
         const dataset = e.target.dataset;
         switch (dataset.type) {
             case 'value':
                 this.appendDigit(dataset.value);
                 break;
             case 'command':
-
+                this.execCommand(dataset.value);
                 break;
             case 'operation':
-
+                this.appendOperator(dataset.value);
                 break
             default:
                 break;
         }
         console.log();
     },    
-    init: function () {
+    init () {
         for(let button of document.querySelectorAll('.button')){
             button.addEventListener('click', this.handleEvent.bind(this));
         }
