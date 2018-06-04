@@ -75,5 +75,5 @@ document.addEventListener("keydown", function (e) {
        onClickEvent(String.fromCharCode(key));       
     }
 
-    e.preventDefault();
+//    e.preventDefault();
 });
