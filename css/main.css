@@ -55,7 +55,7 @@
                                   supported by Chrome and Opera */    
 }
 
-.button.operation {
+.button.command {
     background-color: gray;
     color: black;
 }
@@ -65,18 +65,18 @@
     font-weight: 400;  
 }
 
-.button.operator {
+.button.operation {
     background-color: orange;    
     font-weight: 600;  
 }
 
-.button.operator.checked {
+.button.operation.checked {
     background-color: #fff;
     color: #000;
     /* font-weight: 600;  */
 }
 
-.button.button.operator:hover {
+.button.button.operation:hover {
     filter: brightness(130%) grayscale(50%);
     /* 
       box-shadow: inset 0 0 0 3px antiquewhite;     
